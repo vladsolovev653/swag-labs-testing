@@ -1,16 +1,8 @@
-import test from "@playwright/test";
-import { LoginPage } from "../page-objects/login/pages/login-page";
-import { User } from "../types/user";
+import { test } from './fixtures/fixtures';
 
 
-test('Example test', async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  const standardUser: User = {
-    username: process.env.STANDARD_USER_USERNAME as string,
-    password: process.env.STANDARD_USER_PASSWORD as string
-  };
-
+test('Example test', async ({ loginPage, standardUser }) => {
   await loginPage.open();
   const inventoryPage = await loginPage.login(standardUser);
-  const cartPage = await inventoryPage.openCart();
+  await inventoryPage.openCartPage();
 });
