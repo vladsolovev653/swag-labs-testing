@@ -1,6 +1,5 @@
 import test from "@playwright/test";
 import { User } from "../../../types/user";
-import { PageFactory } from "../../../utils/page-factory";
 import { BasePage } from "../../common/pages/base-page";
 import { InventoryPage } from '../../inventory/pages/inventory-page';
 
@@ -20,6 +19,6 @@ export class LoginPage extends BasePage {
       await this.loginBtn.click();
     });
 
-    return PageFactory.createPage(InventoryPage, this.page);
+    return new InventoryPage(this.page);
   }
 }

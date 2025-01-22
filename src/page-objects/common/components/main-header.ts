@@ -1,6 +1,5 @@
-import { PageFactory } from "../../../utils/page-factory";
-import { CartPage } from "../../cart/pages/cart-page";
 import { BaseComponent } from "./base-component";
+import { CartPage } from "../../cart/pages/cart-page";
 
 
 export class MainHeader extends BaseComponent {
@@ -11,9 +10,9 @@ export class MainHeader extends BaseComponent {
   private readonly cartLink = this.page.locator(`${this.parentSelector}//a[@class="shopping_cart_link"]`);
   private readonly burgerMenuBtn = this.page.locator(`${this.parentSelector}//button[@id="react-burger-menu-btn"]`);
 
-  public async clickOnCart() {
+  public async clickOnCart(): Promise<CartPage> {
     await this.cartLink.click();
 
-    return PageFactory.createPage(CartPage, this.page);
+    return new CartPage(this.page);
   }
 }
