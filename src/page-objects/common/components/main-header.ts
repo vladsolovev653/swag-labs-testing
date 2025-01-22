@@ -1,3 +1,5 @@
+import { PageFactory } from "../../../utils/page-factory";
+import { CartPage } from "../../cart/pages/cart-page";
 import { BaseComponent } from "./base-component";
 
 
@@ -11,5 +13,7 @@ export class MainHeader extends BaseComponent {
 
   public async clickOnCart() {
     await this.cartLink.click();
+
+    return PageFactory.createPage(CartPage, this.page);
   }
 }

@@ -12,5 +12,5 @@ test('Example test', async ({ page }) => {
 
   await loginPage.open();
   const inventoryPage = await loginPage.login(standardUser);
-  const cartPage = await inventoryPage.openCart();
+  const cartPage = await inventoryPage.header.clickOnCart();
 });

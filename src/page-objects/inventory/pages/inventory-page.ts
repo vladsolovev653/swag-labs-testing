@@ -7,15 +7,4 @@ import { CartPage } from "../../cart/pages/cart-page";
 
 export class InventoryPage extends BasePage {
   protected readonly url = '/inventory.html';
-
-  /* Components */
-  private readonly header = new MainHeader(this.page);
-
-  public async openCart() {
-    await test.step(`Go to cart`, async () => {
-      this.header.clickOnCart();      
-    });
-
-    return PageFactory.createPage(CartPage, this.page);
-  }
 }
