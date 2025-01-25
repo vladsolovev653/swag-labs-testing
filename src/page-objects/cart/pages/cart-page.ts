@@ -6,4 +6,5 @@ import { BasePage } from "../../common/pages/base-page";
  */
 export class CartPage extends BasePage {
   protected readonly url = '/cart.html';
+  protected readonly name = 'Cart page';
 }

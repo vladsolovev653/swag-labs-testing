@@ -1,30 +1,38 @@
 import test from "@playwright/test";
-import { User } from "../../../types/user";
+import { User } from "../../../types/data/user";
 import { BasePage } from "../../common/pages/base-page";
 import { InventoryPage } from '../../inventory/pages/inventory-page';
+import { Input } from "../../common/elements/input";
+import { Button } from "../../common/elements/button";
+import { PageFactory } from "../../../utils/page-factory";
 
 
+/**
+ * Login page.
+ */
 export class LoginPage extends BasePage {
   protected readonly url = '/';
+  protected readonly name = 'Login page';
+
 
   /* Locators */
-  private readonly usernameInput = this.page.locator('#user-name');
-  private readonly passwordInput = this.page.locator('#password');
-  private readonly loginBtn = this.page.locator('#login-button');
+  private readonly usernameInput = new Input({ page: this.page, selector: '#user-name', name: 'Username' });
+  private readonly passwordInput = new Input({ page: this.page, selector: '#password', name: 'Password' });
+  private readonly loginBtn = new Button({ page: this.page, selector: '#login-button', name: 'Login' });
 
 
   /**
-   * Авторизация пользователем.
-   * @param user Данные пользователя.
-   * @returns Страница с товарами.
+   * User login.
+   * @param user User data.
+   * @returns Inventory page.
    */
   public async login(user: User): Promise<InventoryPage> {
-    await test.step(`Авторизоваться пользователем "${user.username}"`, async () => {
-      await this.usernameInput.fill(user.username);
-      await this.passwordInput.fill(user.password);
+    await test.step(`Login with user "${user.username}"`, async () => {
+      await this.usernameInput.fillPrivate(user.username);
+      await this.passwordInput.fillPrivate(user.password);
       await this.loginBtn.click();
     });
 
-    return new InventoryPage(this.page);
+    return await PageFactory.createPage(InventoryPage, this.page);
   }
 }

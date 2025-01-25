@@ -2,7 +2,7 @@ import { Page } from '@playwright/test';
 
 
 /**
- * Базовый объект страницы.
+ * Base page object.
  */
 export abstract class BasePageObject {
   constructor(protected readonly page: Page) {}
