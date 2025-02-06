@@ -1,3 +1,7 @@
+import test from "@playwright/test";
+import { PageEnum } from "../../../../enums/page-enum";
+import { PageFactory } from "../../../../utils/page-factory";
+import { CartPage } from "../../../cart/pages/cart-page";
 import { BaseComponent } from "../base-component";
 import { BurgerMenu } from "./burger-menu";
 
@@ -16,9 +20,16 @@ export class MainHeader extends BaseComponent {
   private readonly cartLink = this.page.locator(`${this.parentSelector}//a[@class="shopping_cart_link"]`);
 
   /**
-   * Нажать кнопку корзины
+   * Перейти в корзину.
+   * @returns Страницу корзины.
    */
-  public async clickCartLink() {
-    await this.cartLink.click();
+  public async clickCartLink(): Promise<CartPage> {
+    await test.step(`Open Cart Page`, async () => {
+      await this.cartLink.click();      
+    });
+
+    const cartPage = PageFactory.getPage<CartPage>(PageEnum.CartPage, this.page);
+    await cartPage.shouldBeLoaded();
+    return cartPage;
   }
 }

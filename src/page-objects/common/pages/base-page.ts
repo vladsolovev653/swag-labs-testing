@@ -1,5 +1,6 @@
 import test, { expect } from "@playwright/test";
 import { BasePageObject } from "../base-page-object";
+import { MainHeader } from "../components/main-header/main-header";
 
 
 /**
@@ -9,6 +10,7 @@ export abstract class BasePage extends BasePageObject {
   protected abstract readonly url: string;
   protected abstract readonly name: string;
 
+  public readonly header = new MainHeader(this.page);
 
   /**
    * Открыть страницу.
@@ -29,7 +31,7 @@ export abstract class BasePage extends BasePageObject {
 
   
   private async shouldHaveValidURL(): Promise<void> {
-    await test.step(`Page "${this.name}" should have URL "${this.url}"`, async () => {
+    await test.step(`Page "${this.name}" should have URL "${this.baseUrl}${this.url}"`, async () => {
       await expect(this.page).toHaveURL(this.url);
     });
   }

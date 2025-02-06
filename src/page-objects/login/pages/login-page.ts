@@ -5,6 +5,7 @@ import { InventoryPage } from '../../inventory/pages/inventory-page';
 import { Input } from "../../common/elements/input";
 import { Button } from "../../common/elements/button";
 import { PageFactory } from "../../../utils/page-factory";
+import { PageEnum } from "../../../enums/page-enum";
 
 
 /**
@@ -33,6 +34,8 @@ export class LoginPage extends BasePage {
       await this.loginBtn.click();
     });
 
-    return await PageFactory.createPage(InventoryPage, this.page);
+    const inventoryPage = PageFactory.getPage<InventoryPage>(PageEnum.InventoryPage, this.page);
+    await inventoryPage.shouldBeLoaded();
+    return inventoryPage;
   }
 }
